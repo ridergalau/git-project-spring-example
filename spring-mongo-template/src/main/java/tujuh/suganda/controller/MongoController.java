@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import tujuh.suganda.dao.MongoDao;
+import tujuh.suganda.model.CarModel;
 import tujuh.suganda.model.MessageModel;
 
 @CrossOrigin(origins = "*")
@@ -45,10 +46,12 @@ public class MongoController {
 	public MessageModel save(@RequestParam(value = "id") String id, @RequestParam(value = "name") String name,
 			@RequestParam(value = "manufacture") String manufacture, @RequestParam(value = "owner") String owner,
 			@RequestParam(value = "group") String group) {
-		String thedate = new SimpleDateFormat("yyyy-MM-dd-HH-mm").format(date);
 		
+		String thedate = new SimpleDateFormat("yyyy-MM-dd-HH-mm").format(date);
 		List<String> list = Arrays.asList(group.split("\\s*,\\s*"));
-		msg = mongo.saveData(id, name, manufacture, thedate, owner, list);
+		
+		CarModel model = new CarModel(id, name, manufacture, thedate, owner, list);
+		msg = mongo.saveData(model);
 		return msg;
 	}
 

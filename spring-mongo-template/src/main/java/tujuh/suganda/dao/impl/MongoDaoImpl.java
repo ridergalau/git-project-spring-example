@@ -27,10 +27,11 @@ import tujuh.suganda.model.MessageModel;
 
 @Service
 public class MongoDaoImpl implements MongoDao {
-	  private static final Logger LOGGER = LoggerFactory.getLogger(MongoDaoImpl.class);
-	  Date date = new Date();
-		
-	  String thedate = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss").format(date);
+	private static final Logger LOGGER = LoggerFactory.getLogger(MongoDaoImpl.class);
+	Date date = new Date();
+
+	String thedate = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss").format(date);
+	
 	static ApplicationContext ctx = new AnnotationConfigApplicationContext(Config.class);
 	static MongoOperations mongo = (MongoOperations) ctx.getBean("mongoTemplate");
 
@@ -38,7 +39,7 @@ public class MongoDaoImpl implements MongoDao {
 	public String saveCar(String id, String name, String manufacture, String date, String owner, List group) {
 		CarModel car = new CarModel(id, name, manufacture, date, owner, group);
 		mongo.save(car);
-		LOGGER.info("has been executed - "+ thedate);
+		LOGGER.info("has been executed - " + thedate);
 		return name + " Saved !";
 	}
 
@@ -57,17 +58,16 @@ public class MongoDaoImpl implements MongoDao {
 			message.setMessage("false");
 			message.setStatus("404");
 		}
-		LOGGER.info("has been executed - "+ thedate);
+		LOGGER.info("has been executed - " + thedate);
 		return message;
 	}
 
 	@Override
-	public MessageModel saveData(String id, String name, String manufacture, String date, String owner, List group) {
-		CarModel car = new CarModel(id, name, manufacture, date, owner, group);
+	public MessageModel saveData(CarModel car) {
 		MessageModel message = new MessageModel();
 		try {
 			mongo.save(car);
-			message.setData(name+ "Saved At:"+date);
+			message.setData(car.getName() + "Saved At:" + date);
 			message.setMessage("true");
 			message.setStatus("200");
 		} catch (Exception e) {
@@ -75,7 +75,7 @@ public class MongoDaoImpl implements MongoDao {
 			message.setMessage("false");
 			message.setStatus("404");
 		}
-		LOGGER.info("has been executed - "+ thedate);
+		LOGGER.info("has been executed - " + thedate);
 		return message;
 	}
 
@@ -94,7 +94,7 @@ public class MongoDaoImpl implements MongoDao {
 			message.setMessage("false");
 			message.setStatus("404");
 		}
-		LOGGER.info("has been executed - "+ thedate);
+		LOGGER.info("has been executed - " + thedate);
 		return message;
 	}
 
@@ -114,7 +114,7 @@ public class MongoDaoImpl implements MongoDao {
 			message.setMessage("false");
 			message.setStatus("404");
 		}
-		LOGGER.info("has been executed - "+ thedate);
+		LOGGER.info("has been executed - " + thedate);
 		return message;
 	}
 
@@ -133,10 +133,8 @@ public class MongoDaoImpl implements MongoDao {
 			message.setMessage("false");
 			message.setStatus("404");
 		}
-		LOGGER.info("has been executed - "+ thedate);
+		LOGGER.info("has been executed - " + thedate);
 		return message;
 	}
-	
-	
 
 }
