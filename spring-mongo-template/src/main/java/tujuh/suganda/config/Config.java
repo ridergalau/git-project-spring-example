@@ -16,7 +16,6 @@ import com.mongodb.MongoClient;
 @Configuration
 @PropertySource("classpath:application.properties")
 public class Config {
-
 	@Autowired
 	Environment envi;
 
