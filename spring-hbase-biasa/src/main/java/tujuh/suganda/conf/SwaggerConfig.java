@@ -18,15 +18,12 @@ public class SwaggerConfig {
 
 	@Bean(name = "SwaggerBean")
 	public Docket myApi() {
-		return new Docket(DocumentationType.SWAGGER_2).apiInfo(getApiInfo());
-	}
-
-	private Predicate<String> paths() {
-		return Predicates.not(PathSelectors.regex("/basic-error-controller.*"));
+		return new Docket(DocumentationType.SWAGGER_2).apiInfo(getApiInfo()).select()
+				.paths(Predicates.not(PathSelectors.regex("/error"))) // Exclude Spring error controllers
+				.build();
 	}
 
 	private ApiInfo getApiInfo() {
-
 		// We do not use all info
 		ApiInfo info = new ApiInfo("Hbase Spring BIASA", "Hbase Spring biasa (Bukan Hbase Template)", "1.0", "", "", "",
 				"");
