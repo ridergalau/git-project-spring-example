@@ -45,7 +45,7 @@ public class DaoHbase {
 
 					isi.put(Bytes.toString(keyValue.getQualifier()), Bytes.toString(keyValue.getValue()));
 					
-					System.out.println("Qualifier : " + Bytes.toString(keyValue.getQualifier()) + " : Value : "
+					System.out.println("Qualifier : " + Bytes.toString(keyValue.getQualifier()) + " || Value : "
 							+ Bytes.toString(keyValue.getValue()));
 					value.add(isi);
 				}
